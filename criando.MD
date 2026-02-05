@@ -1,44 +1,57 @@
-Fast API
+# 🚀 Introdução ao FastAPI
 
-Exemplo:
+## 📌 O que é FastAPI?
 
-Front-end → pede usuários → API responde
+FastAPI é um **framework Python moderno** para criação de APIs rápidas, simples e com documentação automática.
 
-App mobile → pede login → API responde
-A comunicação acontece por requisições HTTP:
-GET → buscar dados
+### Exemplos de uso:
 
-POST → enviar dados
+* Front-end → pede usuários → API responde
+* App mobile → pede login → API responde
 
-PUT → atualizar
+A comunicação acontece por **requisições HTTP**:
 
-DELETE → apagar
+* **GET** → buscar dados
+* **POST** → enviar dados
+* **PUT** → atualizar dados
+* **DELETE** → apagar dados
 
-1️⃣ Criar um ambiente virtual (opcional, mas recomendado)
+---
+
+## 🛠️ Preparando o ambiente
+
+### 1️⃣ Criar um ambiente virtual (opcional, mas recomendado)
 
 No terminal (CMD ou PowerShell):
 
+```bash
 python -m venv venv
+```
 
-Ativar:
+Ativar o ambiente virtual:
 
+```bash
 venv\Scripts\activate
+```
 
-2️⃣ Instalar FastAPI e servidor
+---
+
+### 2️⃣ Instalar FastAPI e o servidor
+
+```bash
 pip install fastapi uvicorn
+```
 
+* **FastAPI** → framework da API
+* **Uvicorn** → servidor que roda a API
 
-FastAPI → framework
+---
 
-Uvicorn → servidor que roda a API
+## 📄 Criando sua primeira API
 
-Aula 4 – Criando sua primeira API 
-Crie um arquivo chamado:
+Crie um arquivo chamado **`main.py`** e coloque o código abaixo:
 
-main.py
-
-Coloque isso dentro 👇
-
+```python
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -46,56 +59,79 @@ app = FastAPI()
 @app.get("/")
 def home():
     return {"mensagem": "Minha primeira API FastAPI 🚀"}
+```
 
-O que está acontecendo aqui?
+### O que está acontecendo aqui?
 
-FastAPI() → cria a aplicação
+* `FastAPI()` → cria a aplicação
+* `@app.get("/")` → define uma rota GET na URL principal
+* `return` → resposta em formato JSON
 
-@app.get("/") → rota GET na URL principal
+---
 
-return → resposta em JSON
-
-
-
-Rodando a API
+## ▶️ Rodando a API
 
 No terminal, dentro da pasta do projeto:
+
+```bash
 uvicorn main:app --reload
+```
 
 Se aparecer algo como:
 
+```text
 Uvicorn running on http://127.0.0.1:8000
+```
 
-Sua API está viva
+👉 Sua API está viva 🎉
 
 Acesse no navegador:
 
+```
 http://127.0.0.1:8000
+```
 
+---
 
-Documentação automática
-FastAPI cria docs sozinho.
+## 📚 Documentação automática
 
-Swagger (principal):
+FastAPI cria a documentação automaticamente.
 
+### Swagger (principal):
+
+```
 http://127.0.0.1:8000/docs
+```
 
-Redoc (alternativa):
+### Redoc (alternativa):
 
+```
 http://127.0.0.1:8000/redoc
+```
 
-Criando rotas de verdade
+---
 
-Rota GET com parâmetro
+## 🔗 Criando rotas de verdade
+
+### 📥 Rota GET com parâmetro
+
+```python
 @app.get("/usuarios/{id}")
 def buscar_usuario(id: int):
     return {"usuario_id": id}
+```
+
 Exemplo de acesso:
 
+```
 http://127.0.0.1:8000/usuarios/10
+```
 
-Rota POST (enviar dados)
+---
 
+### 📤 Rota POST (enviar dados)
+
+```python
 from pydantic import BaseModel
 
 class Usuario(BaseModel):
@@ -105,31 +141,42 @@ class Usuario(BaseModel):
 @app.post("/usuarios")
 def criar_usuario(usuario: Usuario):
     return {
-        "mensagem": "Usuário criado",
+        "mensagem": "Usuário criado com sucesso",
         "dados": usuario
     }
+```
 
-Como saber se o post funcinou?
-Jeito 1 – Pelo Swagger
-Com a API rodando, abra:
+---
 
+## ✅ Como saber se o POST funcionou?
+
+### 🥇 Testando pelo Swagger
+
+1. Com a API rodando, acesse:
+
+```
 http://127.0.0.1:8000/docs
-Encontre:
+```
 
-POST /usuarios
+2. Encontre **POST /usuarios**
+3. Clique em **Try it out**
+4. No corpo (body), insira:
 
-Clique em Try it out
-No corpo (body), coloque:
+```json
 {
   "nome": "Matheus",
   "idade": 19
 }
+```
 
-Clique em Execute
+5. Clique em **Execute**
 
-Se deu code 200 ou 201 e pq deu certo
+### ✔️ Resultado esperado:
 
-no body vai aparecer 
+* **Status Code:** `200` ou `201`
+* **Response body:**
+
+```json
 {
   "mensagem": "Usuário criado com sucesso",
   "dados": {
@@ -137,14 +184,31 @@ no body vai aparecer
     "idade": 19
   }
 }
+```
 
-Isso CONFIRMA que o POST funcionou.
+Isso confirma que o **POST funcionou corretamente**.
 
-Se NÃO RODAR
-Passo 1 – Olha o TERMINAL (isso é obrigatório)
+---
 
-A FastAPI só funciona se o terminal estiver aberto e rodando.
+## ⚠️ Importante
 
-Você PRECISA ter algo assim aberto:
+A FastAPI **só funciona se o terminal estiver aberto e rodando** o comando abaixo:
 
+```bash
 uvicorn main:app --reload
+```
+
+Se o terminal for fechado, a API para de funcionar.
+
+---
+
+## 🎯 Conclusão
+
+Este projeto cobre:
+
+* Conceito de API
+* Criação de rotas GET e POST
+* Uso do FastAPI
+* Testes via Swagger
+
+Ótimo ponto de partida para backend, QA e APIs modernas 🚀
